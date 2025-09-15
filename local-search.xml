@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>使用 ClickHouse 中遇到的坑</title>
+    <link href="/2025/08/29/%E4%BD%BF%E7%94%A8%20ClickHouse%20%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"/>
+    <url>/2025/08/29/%E4%BD%BF%E7%94%A8%20ClickHouse%20%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/</url>
+    
+    <content type="html"><![CDATA[<p>最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。</p><h2 id="批量插入操作"><a href="#批量插入操作" class="headerlink" title="批量插入操作"></a>批量插入操作</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在批量插入操作中，出现如下报错：</p><blockquote><p>信息经脱敏处理</p></blockquote><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs YAML"><span class="hljs-attr">ru.yandex.clickhouse.except.ClickHouseException:</span> <span class="hljs-string">ClickHouse</span> <span class="hljs-string">exception,</span> <span class="hljs-attr">code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-attr">host:</span> [<span class="hljs-string">HOST_IP</span>]<span class="hljs-string">,</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8123</span><span class="hljs-string">;</span> <span class="hljs-attr">Code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-string">e.displayText()</span> <span class="hljs-string">=</span> <span class="hljs-attr">DB::ParsingException: Cannot parse input:</span> <span class="hljs-string">expected</span> <span class="hljs-string">&#x27;\t&#x27;</span> <span class="hljs-attr">before:</span> <span class="hljs-string">&#x27;[TASK_ID]\t[QUERY_TEXT]\t[ACCOUNT_ID]\t[USER_ID]\t&#123;&quot;startRow&quot;:1,&quot;sheet&quot;:0,&quot;queryType&quot;:&quot;TEXT_ROW&quot;: </span><br><span class="hljs-string">Row 1:</span><br><span class="hljs-string">Column 0,   name: task_id,     type: String,                         parsed text: &quot;[TASK_ID]&quot;</span><br><span class="hljs-string">Column 1,   name: query,       type: String,                         parsed text: &quot;[QUERY_TEXT]&quot;</span><br><span class="hljs-string">Column 2,   name: account_id,  type: String,                         parsed text: &quot;[ACCOUNT_ID]&quot;</span><br><span class="hljs-string">Column 3,   name: user_id,     type: String,                         parsed text: &quot;[USER_ID]&quot;</span><br><span class="hljs-string">Column 4,   name: others,      type: String,                         parsed text: &quot;&#123;&lt;DOUBLE QUOTE&gt;startRow&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;sheet&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;queryType&lt;DOUBLE QUOTE&gt;:&lt;DOUBLE QUOTE&gt;TEXT_ROW&lt;DOUBLE QUOTE&gt;&#125;&quot;</span><br><span class="hljs-string">Column 5,   name: create_time, type: DateTime64(3, &#x27;</span><span class="hljs-string">Asia/Shanghai&#x27;),</span> <span class="hljs-attr">parsed text:</span> <span class="hljs-string">&quot;[PARSED_CREATE_TIME]&quot;</span><br><span class="hljs-attr">ERROR:</span> <span class="hljs-string">garbage</span> <span class="hljs-string">after</span> <span class="hljs-string">DateTime64(3,</span> <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><span class="hljs-string">):</span> <span class="hljs-string">&quot;[TASK_ID_FRAGMENT]&quot;</span><br></code></pre></td></tr></table></figure><h3 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h3><p>通过以上内容发现：Column 5 错误的接收了 Column 4 的部分内容。</p><p>其中，<code>others</code> 列以字符串类型存储复杂 JSON 参数，可能是其中的<code>\t</code>、<code>\n</code> 等符号导致失败。</p><p>经排查，了解到 ClickHouse JDBC 在批量插入时，会将参数序列化为类似 TSV 的格式。TSV 插入是按 <code>\t</code> 列分隔、<code>\n</code> 行分隔解析的。JSON 字符串里包含这些符号会导致解析错位，并且即使使用<code>\</code>转义，问题依旧存在。</p><p>使用 <code>PreparedStatement.setString(index, json);</code>不会把 TSV 整行拼成一个字符串写入，JDBC 会按列安全写入，包括 JSON 内的 Tab、换行。理论上可以解决此问题。</p><p>但是代码中使用<code>PreparedStatement</code>按列绑定，问题依旧存在。这时候再看操作数据库等部分：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Java">BATCH_INSERT_SQL = <span class="hljs-string">&quot;INSERT INTO xxx</span><br><span class="hljs-string">(task_id, query, account_id, user_id, others, create_time, update_time)</span><br><span class="hljs-string">VALUES (?, ?, ?, ?, ?, now64(3), now64(3))&quot;</span><br><br><span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.prepareStatement(BATCH_INSERT_SQL);<br>statement.setString()<br>...<br></code></pre></td></tr></table></figure><p>问题的根源是 ClickHouse 官方 JDBC 并不完全支持 混合 <code>?</code> 参数 + 函数表达式<code>now64(3)</code> 的 <code>INSERT VALUES</code> 写法，在解析过程中很可能拼成了一行，导致<code>others</code> 内 JSON 包含的特殊字符破坏了列边界，导致后面的 create_time 列解析失败。</p><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>全部使用 <code>?</code> 占位符，利用 JDBC 绑定：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">BATCH_INSERT_SQL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;INSERT INTO xxx&quot;</span> +<br>        <span class="hljs-string">&quot;(task_id, query, account_id, user_id, others, create_time, update_time) &quot;</span> +<br>        <span class="hljs-string">&quot;VALUES (?, ?, ?, ?, ?, ?, ?)&quot;</span>;<br><br>...<br><br><span class="hljs-keyword">for</span> (Task task : tasks) &#123;<br>    statement.setString(index, xxx);<br>    ...<br>    statement.addBatch();<br>&#125;<br></code></pre></td></tr></table></figure><p>ClickHouse 中时间格式为 <code>DateTime64(3,&#39;Asia/Shanghai&#39;)</code>，使用以下 Java 代码代替</p><p><code>now64(3)</code>：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">Calendar</span> <span class="hljs-variable">shanghaiCal</span> <span class="hljs-operator">=</span> Calendar.getInstance(TimeZone.getTimeZone(<span class="hljs-string">&quot;Asia/Shanghai&quot;</span>));<br><br>statement.setTimestamp(index, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(System.currentTimeMillis()), shanghaiCal);<br></code></pre></td></tr></table></figure><p>问题解决！</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Debug</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+      <tag>Debug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2024/12/10/hello-world/"/>
+    <url>/2024/12/10/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+  
+  
+  <entry>
+    <title>about</title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+  </entry>
+  
+  
+  
+</search>
