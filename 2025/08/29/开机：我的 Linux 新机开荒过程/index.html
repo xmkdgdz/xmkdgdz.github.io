@@ -19,23 +19,28 @@
   <meta name="author" content="XMKDGDZ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。 批量插入操作问题描述在批量插入操作中，出现如下报错：  信息经脱敏处理  123456789ru.yandex.clickhouse.except.ClickHouseException: ClickHouse exception, code: 27,">
+    <meta name="description" content="游戏本太笨重了，携带实在是多有不便，几经考虑新买了一个笔记本，日常学习和开发用。i5 16G 512G，写点小代码足够，大服务跑不起来就上 ssh。 主力机已经是 Win 系统了（毕竟要玩游戏嘛），开发主要靠 WSL，就想着要不要一步到位，给新机搞个 Linux。 从 Win 到纯 Linux，预计会遇到很多坑，写个文章以做记录。 重装 Linux新机一般都是预装了 Windows 的，需要我们手">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 ClickHouse 中遇到的坑">
-<meta property="og:url" content="https://xmkdgdz.github.io/2025/08/29/%E4%BD%BF%E7%94%A8%20ClickHouse%20%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="开机：我的 Linux 新机开荒过程">
+<meta property="og:url" content="https://xmkdgdz.github.io/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="XMKDGDZ&#39;s Blog">
-<meta property="og:description" content="最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。 批量插入操作问题描述在批量插入操作中，出现如下报错：  信息经脱敏处理  123456789ru.yandex.clickhouse.except.ClickHouseException: ClickHouse exception, code: 27,">
+<meta property="og:description" content="游戏本太笨重了，携带实在是多有不便，几经考虑新买了一个笔记本，日常学习和开发用。i5 16G 512G，写点小代码足够，大服务跑不起来就上 ssh。 主力机已经是 Win 系统了（毕竟要玩游戏嘛），开发主要靠 WSL，就想着要不要一步到位，给新机搞个 Linux。 从 Win 到纯 Linux，预计会遇到很多坑，写个文章以做记录。 重装 Linux新机一般都是预装了 Windows 的，需要我们手">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-08-29T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-29T02:00:00.000Z">
+<meta property="og:image" content="https://xmkdgdz.github.io/img/linux-new-machine/1280X1280.PNG">
+<meta property="og:image" content="https://xmkdgdz.github.io/img/linux-new-machine/50bf1965-bee0-4964-8728-aed259feb513.png">
+<meta property="og:image" content="https://xmkdgdz.github.io/img/linux-new-machine/0fea1d9b-3338-4019-ad5f-2f6e8d9ba164.png">
+<meta property="og:image" content="https://xmkdgdz.github.io/img/linux-new-machine/2d195681-eb39-43ee-8d0d-4322378d499a.png">
+<meta property="article:published_time" content="2025-08-29T13:21:34.000Z">
+<meta property="article:modified_time" content="2025-09-13T10:27:34.000Z">
 <meta property="article:author" content="XMKDGDZ">
-<meta property="article:tag" content="数据库">
-<meta property="article:tag" content="Debug">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="mixture">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xmkdgdz.github.io/img/linux-new-machine/1280X1280.PNG">
   
   
   
-  <title>使用 ClickHouse 中遇到的坑 - XMKDGDZ&#39;s Blog</title>
+  <title>开机：我的 Linux 新机开荒过程 - XMKDGDZ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -218,7 +223,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">使用 ClickHouse 中遇到的坑</span>
+            <span id="subtitle">开机：我的 Linux 新机开荒过程</span>
           
         </div>
 
@@ -229,8 +234,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-29 10:00" pubdate>
-          2025年8月29日 上午
+        <time datetime="2025-08-29 21:21" pubdate>
+          2025年8月29日 晚上
         </time>
       </span>
     
@@ -241,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          612 字
+          1.4k 字
         
       </span>
     
@@ -252,7 +257,7 @@
         
         
         
-          6 分钟
+          12 分钟
         
       </span>
     
@@ -289,33 +294,106 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">使用 ClickHouse 中遇到的坑</h1>
+            <h1 id="seo-header">开机：我的 Linux 新机开荒过程</h1>
+            
+              <p id="updated-time" class="note note-default" style="display: none">
+                
+                  
+                    本文最后更新于 2025-09-13T18:27:34+08:00
+                  
+                  
+
+                
+              </p>
             
             
               <div class="markdown-body">
                 
-                <p>最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。</p>
-<h2 id="批量插入操作"><a href="#批量插入操作" class="headerlink" title="批量插入操作"></a>批量插入操作</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在批量插入操作中，出现如下报错：</p>
-<blockquote>
-<p>信息经脱敏处理</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs YAML"><span class="hljs-attr">ru.yandex.clickhouse.except.ClickHouseException:</span> <span class="hljs-string">ClickHouse</span> <span class="hljs-string">exception,</span> <span class="hljs-attr">code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-attr">host:</span> [<span class="hljs-string">HOST_IP</span>]<span class="hljs-string">,</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8123</span><span class="hljs-string">;</span> <span class="hljs-attr">Code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-string">e.displayText()</span> <span class="hljs-string">=</span> <span class="hljs-attr">DB::ParsingException: Cannot parse input:</span> <span class="hljs-string">expected</span> <span class="hljs-string">&#x27;\t&#x27;</span> <span class="hljs-attr">before:</span> <span class="hljs-string">&#x27;[TASK_ID]\t[QUERY_TEXT]\t[ACCOUNT_ID]\t[USER_ID]\t&#123;&quot;startRow&quot;:1,&quot;sheet&quot;:0,&quot;queryType&quot;:&quot;TEXT_ROW&quot;: </span><br><span class="hljs-string">Row 1:</span><br><span class="hljs-string">Column 0,   name: task_id,     type: String,                         parsed text: &quot;[TASK_ID]&quot;</span><br><span class="hljs-string">Column 1,   name: query,       type: String,                         parsed text: &quot;[QUERY_TEXT]&quot;</span><br><span class="hljs-string">Column 2,   name: account_id,  type: String,                         parsed text: &quot;[ACCOUNT_ID]&quot;</span><br><span class="hljs-string">Column 3,   name: user_id,     type: String,                         parsed text: &quot;[USER_ID]&quot;</span><br><span class="hljs-string">Column 4,   name: others,      type: String,                         parsed text: &quot;&#123;&lt;DOUBLE QUOTE&gt;startRow&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;sheet&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;queryType&lt;DOUBLE QUOTE&gt;:&lt;DOUBLE QUOTE&gt;TEXT_ROW&lt;DOUBLE QUOTE&gt;&#125;&quot;</span><br><span class="hljs-string">Column 5,   name: create_time, type: DateTime64(3, &#x27;</span><span class="hljs-string">Asia/Shanghai&#x27;),</span> <span class="hljs-attr">parsed text:</span> <span class="hljs-string">&quot;[PARSED_CREATE_TIME]&quot;</span><br><span class="hljs-attr">ERROR:</span> <span class="hljs-string">garbage</span> <span class="hljs-string">after</span> <span class="hljs-string">DateTime64(3,</span> <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><span class="hljs-string">):</span> <span class="hljs-string">&quot;[TASK_ID_FRAGMENT]&quot;</span><br></code></pre></td></tr></table></figure>
+                <p>游戏本太笨重了，携带实在是多有不便，几经考虑新买了一个笔记本，日常学习和开发用。i5 16G 512G，写点小代码足够，大服务跑不起来就上 ssh。</p>
+<p>主力机已经是 Win 系统了（毕竟要玩游戏嘛），开发主要靠 WSL，就想着要不要一步到位，给新机搞个 Linux。</p>
+<p>从 Win 到纯 Linux，预计会遇到很多坑，写个文章以做记录。</p>
+<h2 id="重装-Linux"><a href="#重装-Linux" class="headerlink" title="重装 Linux"></a>重装 Linux</h2><p>新机一般都是预装了 Windows 的，需要我们手动重装为 Linux。</p>
+<ol>
+<li><strong>下载 Linux 发行版并制作 USB 启动盘</strong></li>
+</ol>
+<p>安装系统需要将 Linux 发行版烧录进 CD，而现在更现代化的做法是下载进 U 盘。</p>
+<p>你需要一个 U 盘，8G以上，U 盘原有的内容会被格式化，注意数据保存。</p>
+<p>软件 refus 可以完成 USB 启动盘的创建。</p>
+<p>配置：分区类型 GPT，目标系统类型 UEFI，文件系统 NTFS</p>
+<p>发行版镜像这里选择 Ubuntu 最新 LST 桌面版：<a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></p>
+<ol start="2">
+<li><strong>进入 BIOS</strong></li>
+</ol>
+<p>BIOS 会加载各种硬件，并控制电脑操作系统的引导或启动。</p>
+<p>把U盘插到电脑上再重启电脑，重启过程中长按 F2（大部分设备）进入BIOS界面。找到“Boot”或“启动”选项卡，将 U盘（USB HDD）设置为第一启动项。</p>
+<p>保存并退出，等待安装完成。</p>
+<ol start="3">
+<li><strong>Ubuntu 初始设置</strong></li>
+</ol>
+<ul>
+<li>更新和第三方软件：勾选“为图形或无线硬件安装第三方软件…”（这将安装一些闭源驱动，如显卡和网卡驱动，如果作为正常电脑建议勾选）。</li>
+<li>安装类型：为了完全替换 Windows，选择 “清除整个磁盘并安装 Ubuntu” 或 “擦除磁盘并安装 Ubuntu”。</li>
+<li>其他按个性化需求配置即可</li>
+</ul>
+<p>等待一段时间后，安装完成。</p>
+<h2 id="默认文件夹改回英文"><a href="#默认文件夹改回英文" class="headerlink" title="默认文件夹改回英文"></a>默认文件夹改回英文</h2><p>在安装时选择了中文，导致默认文件夹均为中文，如“下载”、“文档”等，终端操作时切换中文输入法较为麻烦。通过以下步骤可以解决：</p>
+<ol>
+<li>在终端中依次执行：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Shell">export LANG=en_US<br>xdg-user-dirs-gtk-update<br></code></pre></td></tr></table></figure>
 
-<h3 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h3><p>通过以上内容发现：Column 5 错误的接收了 Column 4 的部分内容。</p>
-<p>其中，<code>others</code> 列以字符串类型存储复杂 JSON 参数，可能是其中的<code>\t</code>、<code>\n</code> 等符号导致失败。</p>
-<p>经排查，了解到 ClickHouse JDBC 在批量插入时，会将参数序列化为类似 TSV 的格式。TSV 插入是按 <code>\t</code> 列分隔、<code>\n</code> 行分隔解析的。JSON 字符串里包含这些符号会导致解析错位，并且即使使用<code>\</code>转义，问题依旧存在。</p>
-<p>使用 <code>PreparedStatement.setString(index, json);</code>不会把 TSV 整行拼成一个字符串写入，JDBC 会按列安全写入，包括 JSON 内的 Tab、换行。理论上可以解决此问题。</p>
-<p>但是代码中使用<code>PreparedStatement</code>按列绑定，问题依旧存在。这时候再看操作数据库等部分：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Java">BATCH_INSERT_SQL = <span class="hljs-string">&quot;INSERT INTO xxx</span><br><span class="hljs-string">(task_id, query, account_id, user_id, others, create_time, update_time)</span><br><span class="hljs-string">VALUES (?, ?, ?, ?, ?, now64(3), now64(3))&quot;</span><br><br><span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.prepareStatement(BATCH_INSERT_SQL);<br>statement.setString()<br>...<br></code></pre></td></tr></table></figure>
+<p>在弹出的窗口中确认更新名称，此操作会将中文目录名转换为英文。</p>
+<p>如果被改名的文件夹中有文件，文件夹会被保留，同时新创建一个英文文件夹，所以不用担心数据丢失。如果内容比较重要或较大，建议还是备份一下。</p>
+<ol start="2">
+<li>继续执行：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Shell">export LANG=zh_CN.UTF-8<br>xdg-user-dirs-gtk-update<br></code></pre></td></tr></table></figure>
 
-<p>问题的根源是 ClickHouse 官方 JDBC 并不完全支持 混合 <code>?</code> 参数 + 函数表达式<code>now64(3)</code> 的 <code>INSERT VALUES</code> 写法，在解析过程中很可能拼成了一行，导致<code>others</code> 内 JSON 包含的特殊字符破坏了列边界，导致后面的 create_time 列解析失败。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>全部使用 <code>?</code> 占位符，利用 JDBC 绑定：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">BATCH_INSERT_SQL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;INSERT INTO xxx&quot;</span> +<br>        <span class="hljs-string">&quot;(task_id, query, account_id, user_id, others, create_time, update_time) &quot;</span> +<br>        <span class="hljs-string">&quot;VALUES (?, ?, ?, ?, ?, ?, ?)&quot;</span>;<br><br>...<br><br><span class="hljs-keyword">for</span> (Task task : tasks) &#123;<br>    statement.setString(index, xxx);<br>    ...<br>    statement.addBatch();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在弹出的对话框中选择“保留旧的名称”并勾选“不再询问”，这能阻止系统在下次登录时改回中文。</p>
+<ol start="3">
+<li>检查 ~&#x2F;.config&#x2F;user-dirs.dirs 文件，确认路径指向是否正确（XDG_DOWNLOAD_DIR&#x3D;”$HOME&#x2F;Downloads”），不正确可以手动更改。</li>
+</ol>
+<p>更改完成。</p>
+<h2 id="实用软件或工具安装"><a href="#实用软件或工具安装" class="headerlink" title="实用软件或工具安装"></a><strong>实用软件或工具安装</strong></h2><p>以下为一些个人需要的软件，仅供参考。未特别说明的直接到官网下载 Linux 版即可。AppImage 格式双击或者终端运行直接可用，.deb 格式 <code>apt install</code> 安装。</p>
+<h3 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a><strong>常用工具</strong></h3><ul>
+<li>谷歌浏览器：应用商店的是开源版本，不能登陆账号同步数据，需要自行下载。</li>
+<li>QQ，微信</li>
+<li>腾讯会议，飞书</li>
+<li>录屏软件：kooha <a target="_blank" rel="noopener" href="https://github.com/SeaDve/Kooha">https://github.com/SeaDve/Kooha</a> (Wayland 下正常工作)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">sudo</span> apt install flatpak<br>flatpak install https://dl.flathub.org/repo/appstream/io.github.seadve.Kooha.flatpakref<br></code></pre></td></tr></table></figure>
 
-<p>ClickHouse 中时间格式为 <code>DateTime64(3,&#39;Asia/Shanghai&#39;)</code>，使用以下 Java 代码代替 <code>now64(3)</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">Calendar</span> <span class="hljs-variable">shanghaiCal</span> <span class="hljs-operator">=</span> Calendar.getInstance(TimeZone.getTimeZone(<span class="hljs-string">&quot;Asia/Shanghai&quot;</span>));<br><br>statement.setTimestamp(index, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(System.currentTimeMillis()), shanghaiCal);<br></code></pre></td></tr></table></figure>
+<ul>
+<li>截图软件：flameshot</li>
+</ul>
+<p><strong>文件互传</strong></p>
+<p>设备之间经常需要互传文件或者文本，这里推荐一个网站 <a target="_blank" rel="noopener" href="https://www.snap-drop.net/">SnapDrop</a>，只需要在浏览器中打开网站，在同一网络下即可配对，互传文件和文本。（也有不同网络下配对的功能）</p>
+<h3 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a><strong>科学上网</strong></h3><p>clash 地址：<a target="_blank" rel="noopener" href="https://clashverge.org/">https://clashverge.org/</a> 按说明选择合适的版本安装即可，这里建议 appimage 版本，直接双击即可使用。如果双击后无反应，用终端打开，可能显示缺少依赖，下载即可。</p>
+<p>导入订阅的节点链接，开启系统代理。</p>
+<p>出现代理不生效的问题，配置系统网络代理后解决</p>
+<p><img src="/img/linux-new-machine/1280X1280.PNG" srcset="/img/loading.gif" lazyload></p>
+<h3 id="flameshot-快捷键无效"><a href="#flameshot-快捷键无效" class="headerlink" title="flameshot 快捷键无效"></a>flameshot 快捷键无效</h3><p>wayland 下真是问题多多，由于其严格的权限限制，很多录屏、截图软件等和屏幕捕获有关的东西都不能用，或者功能不全。</p>
+<p>根据官网配置 flameshot,参考：<a target="_blank" rel="noopener" href="https://flameshot.org/docs/guide/key-bindings/#linux">https://flameshot.org/docs/guide/key-bindings/#linux</a> 配置全局快捷键启动 flame gui 进行截图</p>
+<p>命令行中运行 <code>flame gui</code> 一切功能正常，但是配置热键无效。</p>
+<p><img src="/img/linux-new-machine/50bf1965-bee0-4964-8728-aed259feb513.png" srcset="/img/loading.gif" lazyload></p>
+<p>经排查在 github 上找到以下讨论</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/flatpak/xdg-desktop-portal/issues/1070#issuecomment-1771302632">https://github.com/flatpak/xdg-desktop-portal/issues/1070#issuecomment-1771302632</a></p>
+<p>尝试其回答中的方法：</p>
+<p>在任意位置创建文件，编写以下脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">env</span> QT_QPA_PLATFORM=wayland flameshot gui<br></code></pre></td></tr></table></figure>
 
-<p>问题解决！</p>
+<p>在系统快捷键中设置该脚本为运行命令，经测试有效。</p>
+<h3 id="视频文件损坏的补救办法"><a href="#视频文件损坏的补救办法" class="headerlink" title="视频文件损坏的补救办法"></a>视频文件损坏的补救办法</h3><p>在使用 kazam 录屏使因为断电、误触bug等种种原因，没有正常中断录制，导致视频文件不能正常观看。</p>
+<p>搜索一番，发现了解决办法，也可以尝试解决其他软件和原因造成的视频文件损坏。</p>
+<ol>
+<li>下载开源视频程序 VLC.</li>
+<li>打开VLC，点击媒体 -&gt; 转换&#x2F;保存</li>
+</ol>
+<p><img src="/img/linux-new-machine/0fea1d9b-3338-4019-ad5f-2f6e8d9ba164.png" srcset="/img/loading.gif" lazyload><br>3. 文件选择中添加损坏的视频文件，然后点击转换&#x2F;保存<br>4. 转换页面中，选择目标文件，随便选一个输出目录，默认名字与来源文件同名，可以修改。配置文件最好选择与源文件相同的格式。</p>
+<p><img src="/img/linux-new-machine/2d195681-eb39-43ee-8d0d-4322378d499a.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li>点击开始。VLC开始转存，时长一般比原视频的时长短一些，静待完成即可。</li>
+</ol>
 
                 
               </div>
@@ -334,7 +412,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Debug/" class="category-chain-item">Debug</a>
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
   
   
 
@@ -349,9 +427,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
       
-        <a href="/tags/Debug/" class="print-no-link">#Debug</a>
+        <a href="/tags/mixture/" class="print-no-link">#mixture</a>
       
     </div>
   
@@ -365,18 +443,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/" title="开机：我的 Linux 新机开荒过程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">开机：我的 Linux 新机开荒过程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/10/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2025/08/29/%E4%BD%BF%E7%94%A8%20ClickHouse%20%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" title="使用 ClickHouse 中遇到的坑">
+                        <span class="hidden-mobile">使用 ClickHouse 中遇到的坑</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -516,6 +588,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   
