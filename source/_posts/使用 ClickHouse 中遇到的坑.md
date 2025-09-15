@@ -69,9 +69,7 @@ for (Task task : tasks) {
 }
 ```
 
-ClickHouse 中时间格式为 `DateTime64(3,'Asia/Shanghai')`，使用以下 Java 代码代替
-
-`now64(3)`：
+ClickHouse 中时间格式为 `DateTime64(3,'Asia/Shanghai')`，使用以下 Java 代码代替 `now64(3)`：
 
 ```Java
 Calendar shanghaiCal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Shanghai"));
