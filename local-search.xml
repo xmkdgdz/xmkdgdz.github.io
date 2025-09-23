@@ -20,6 +20,8 @@
     
     <tags>
       
+      <tag>debug</tag>
+      
       <tag>Linux</tag>
       
       <tag>mixture</tag>
@@ -49,7 +51,7 @@
       
       <tag>数据库</tag>
       
-      <tag>Debug</tag>
+      <tag>debug</tag>
       
     </tags>
     
@@ -66,6 +68,12 @@
     
     
     
+    <tags>
+      
+      <tag>blog</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -74,7 +82,18 @@
   
   
   <entry>
-    <title>about</title>
+    <title></title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[google-site-verification: googleb2883c1fc5852408.html]]></content>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
     <link href="/"/>
     <url>/</url>
     
@@ -85,7 +104,7 @@
   
   
   <entry>
-    <title></title>
+    <title>about</title>
     <link href="/"/>
     <url>/</url>
     
