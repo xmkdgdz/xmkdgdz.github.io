@@ -1,7 +1,7 @@
 ---
 title: 使用 ClickHouse 中遇到的坑
 category: Debug
-tags: [数据库, Debug]
+tags: [数据库, debug]
 date: 2025-08-29 10:00:00
 updated: 2025-08-29 10:00:00
 ---

@@ -1,7 +1,7 @@
 ---
 title: 开机：我的 Linux 新机开荒过程
 category: Linux
-tags: [Linux, mixture]
+tags: [Linux, mixture, debug]
 date: 2025-08-29 21:21:34
 updated: 2025-09-13 18:27:34
 ---

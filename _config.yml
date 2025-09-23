@@ -104,3 +104,6 @@ deploy:
   type: git
   repo: git@github.com:xmkdgdz/xmkdgdz.github.io.git
   branch: main
+
+sitemap:
+  path: sitemap.xml
