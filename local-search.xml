@@ -70,7 +70,7 @@
     
     <tags>
       
-      <tag>blog</tag>
+      <tag>hexo</tag>
       
     </tags>
     
@@ -82,18 +82,7 @@
   
   
   <entry>
-    <title></title>
-    <link href="/"/>
-    <url>/</url>
-    
-    <content type="html"><![CDATA[google-site-verification: googleb2883c1fc5852408.html]]></content>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
+    <title>about</title>
     <link href="/"/>
     <url>/</url>
     
@@ -104,7 +93,7 @@
   
   
   <entry>
-    <title>about</title>
+    <title></title>
     <link href="/"/>
     <url>/</url>
     

@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://xmkdgdz.github.io/googleb2883c1fc5852408.html</loc>
-    
-    <lastmod>2025-09-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://xmkdgdz.github.io/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2025-09-13</lastmod>
@@ -56,13 +47,6 @@
 
   
   <url>
-    <loc>https://xmkdgdz.github.io/tags/blog/</loc>
-    <lastmod>2025-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://xmkdgdz.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2025-09-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -71,6 +55,13 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/debug/</loc>
+    <lastmod>2025-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/hexo/</loc>
     <lastmod>2025-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
