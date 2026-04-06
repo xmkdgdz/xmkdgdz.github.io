@@ -1,0 +1,151 @@
+#kurisu-assistant {
+  position: fixed;
+  left: 250px;
+  right: auto;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none;
+}
+
+#kurisu-assistant .kurisu-fab,
+#kurisu-assistant .kurisu-chat-panel {
+  pointer-events: auto;
+}
+
+#kurisu-assistant .kurisu-fab {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(28, 34, 44, 0.88);
+  color: #f6f8ff;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+#kurisu-assistant .kurisu-fab:hover {
+  background: rgba(56, 68, 89, 0.92);
+}
+
+#kurisu-assistant .kurisu-chat-panel {
+  width: min(300px, 70vw);
+  height: 340px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(20, 24, 32, 0.92);
+  color: #e9eef8;
+  display: none;
+  grid-template-rows: auto 1fr auto auto;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(8, 10, 14, 0.34);
+}
+
+#kurisu-assistant .kurisu-chat-panel.is-open {
+  display: grid;
+}
+
+#kurisu-assistant .kurisu-chat-header {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  color: #c9d3e5;
+}
+
+#kurisu-assistant .kurisu-preset-questions {
+  padding: 8px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+#kurisu-assistant .kurisu-preset-questions button {
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(30, 41, 59, 0.6);
+  color: #dce6f7;
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+#kurisu-assistant .kurisu-preset-questions button:hover {
+  background: rgba(51, 65, 85, 0.7);
+}
+
+#kurisu-assistant .kurisu-chat-messages {
+  overflow: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#kurisu-assistant .kurisu-msg {
+  max-width: 88%;
+  padding: 7px 9px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+#kurisu-assistant .kurisu-msg.is-kurisu {
+  background: rgba(119, 166, 255, 0.22);
+  align-self: flex-start;
+}
+
+#kurisu-assistant .kurisu-msg.is-kurisu a {
+  color: #9ec7ff;
+  text-decoration: underline;
+}
+
+#kurisu-assistant .kurisu-msg.is-user {
+  background: rgba(255, 255, 255, 0.18);
+  align-self: flex-end;
+}
+
+#kurisu-assistant .kurisu-chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+#kurisu-assistant .kurisu-chat-form input {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+#kurisu-assistant .kurisu-chat-form input::placeholder {
+  color: rgba(233, 238, 248, 0.62);
+}
+
+#kurisu-assistant .kurisu-chat-form button {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(110, 150, 255, 0.24);
+  color: #f0f4ff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #kurisu-assistant,
+  #oml2d-stage,
+  #oml2d-statusBar,
+  #oml2d-tips,
+  #oml2d-menus {
+    display: none !important;
+  }
+}
