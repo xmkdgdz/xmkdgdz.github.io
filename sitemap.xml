@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://xmkdgdz.github.io/kurisu/expressions/f04.exp.json</loc>
+    <loc>https://xmkdgdz.github.io/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/</loc>
+    
+    <lastmod>2026-04-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/shizuku.physics.json</loc>
     
     <lastmod>2026-04-06</lastmod>
     
@@ -11,7 +20,16 @@
   </url>
   
   <url>
-    <loc>https://xmkdgdz.github.io/kurisu/expressions/f03.exp.json</loc>
+    <loc>https://xmkdgdz.github.io/kurisu/shizuku.pose.json</loc>
+    
+    <lastmod>2026-04-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/kurisu.model.json</loc>
     
     <lastmod>2026-04-06</lastmod>
     
@@ -38,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://xmkdgdz.github.io/kurisu/shizuku.physics.json</loc>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f03.exp.json</loc>
     
     <lastmod>2026-04-06</lastmod>
     
@@ -47,16 +65,7 @@
   </url>
   
   <url>
-    <loc>https://xmkdgdz.github.io/kurisu/shizuku.pose.json</loc>
-    
-    <lastmod>2026-04-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://xmkdgdz.github.io/kurisu/kurisu.model.json</loc>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f04.exp.json</loc>
     
     <lastmod>2026-04-06</lastmod>
     
@@ -103,7 +112,7 @@
 
   <url>
     <loc>https://xmkdgdz.github.io/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -111,35 +120,35 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/hexo/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://xmkdgdz.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://xmkdgdz.github.io/tags/debug/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://xmkdgdz.github.io/tags/Linux/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/mixture/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/Linux/</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/debug/</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -148,14 +157,21 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/categories/Debug/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/categories/Linux/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/categories/blog/</loc>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

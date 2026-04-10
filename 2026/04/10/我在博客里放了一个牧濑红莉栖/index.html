@@ -19,23 +19,23 @@
   <meta name="author" content="XMKDGDZ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。 批量插入操作问题描述在批量插入操作中，出现如下报错：  信息经脱敏处理  123456789ru.yandex.clickhouse.except.ClickHouseException: ClickHouse exception, code: 27,">
+    <meta name="description" content="好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。 不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 ClickHouse 中遇到的坑">
-<meta property="og:url" content="https://xmkdgdz.github.io/2025/08/29/%E4%BD%BF%E7%94%A8%20ClickHouse%20%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="我在博客里放了一个牧濑红莉栖">
+<meta property="og:url" content="https://xmkdgdz.github.io/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/index.html">
 <meta property="og:site_name" content="XMKDGDZ&#39;s Blog">
-<meta property="og:description" content="最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。 批量插入操作问题描述在批量插入操作中，出现如下报错：  信息经脱敏处理  123456789ru.yandex.clickhouse.except.ClickHouseException: ClickHouse exception, code: 27,">
+<meta property="og:description" content="好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。 不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-08-29T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-29T02:00:00.000Z">
+<meta property="article:published_time" content="2026-04-10T12:00:23.000Z">
+<meta property="article:modified_time" content="2026-04-10T12:30:07.717Z">
 <meta property="article:author" content="XMKDGDZ">
-<meta property="article:tag" content="debug">
-<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="mixture">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>使用 ClickHouse 中遇到的坑 - XMKDGDZ&#39;s Blog</title>
+  <title>我在博客里放了一个牧濑红莉栖 - XMKDGDZ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -218,7 +218,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">使用 ClickHouse 中遇到的坑</span>
+            <span id="subtitle">我在博客里放了一个牧濑红莉栖</span>
           
         </div>
 
@@ -229,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-29 10:00" pubdate>
-          2025年8月29日 上午
+        <time datetime="2026-04-10 20:00" pubdate>
+          2026年4月10日 晚上
         </time>
       </span>
     
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          612 字
+          722 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -289,33 +289,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">使用 ClickHouse 中遇到的坑</h1>
+            <h1 id="seo-header">我在博客里放了一个牧濑红莉栖</h1>
+            
+              <p id="updated-time" class="note note-default" style="display: none">
+                
+                  
+                    本文最后更新于 2026-04-10T20:30:07+08:00
+                  
+                  
+
+                
+              </p>
             
             
               <div class="markdown-body">
                 
-                <p>最近在写一个Java项目，需要操作到 ClickHouse 数据库，手写 SQL 完成各种操作。在这中间遇到不少 bug，此处记录一下解决方法。</p>
-<h2 id="批量插入操作"><a href="#批量插入操作" class="headerlink" title="批量插入操作"></a>批量插入操作</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在批量插入操作中，出现如下报错：</p>
-<blockquote>
-<p>信息经脱敏处理</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs YAML"><span class="hljs-attr">ru.yandex.clickhouse.except.ClickHouseException:</span> <span class="hljs-string">ClickHouse</span> <span class="hljs-string">exception,</span> <span class="hljs-attr">code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-attr">host:</span> [<span class="hljs-string">HOST_IP</span>]<span class="hljs-string">,</span> <span class="hljs-attr">port:</span> <span class="hljs-number">8123</span><span class="hljs-string">;</span> <span class="hljs-attr">Code:</span> <span class="hljs-number">27</span><span class="hljs-string">,</span> <span class="hljs-string">e.displayText()</span> <span class="hljs-string">=</span> <span class="hljs-attr">DB::ParsingException: Cannot parse input:</span> <span class="hljs-string">expected</span> <span class="hljs-string">&#x27;\t&#x27;</span> <span class="hljs-attr">before:</span> <span class="hljs-string">&#x27;[TASK_ID]\t[QUERY_TEXT]\t[ACCOUNT_ID]\t[USER_ID]\t&#123;&quot;startRow&quot;:1,&quot;sheet&quot;:0,&quot;queryType&quot;:&quot;TEXT_ROW&quot;: </span><br><span class="hljs-string">Row 1:</span><br><span class="hljs-string">Column 0,   name: task_id,     type: String,                         parsed text: &quot;[TASK_ID]&quot;</span><br><span class="hljs-string">Column 1,   name: query,       type: String,                         parsed text: &quot;[QUERY_TEXT]&quot;</span><br><span class="hljs-string">Column 2,   name: account_id,  type: String,                         parsed text: &quot;[ACCOUNT_ID]&quot;</span><br><span class="hljs-string">Column 3,   name: user_id,     type: String,                         parsed text: &quot;[USER_ID]&quot;</span><br><span class="hljs-string">Column 4,   name: others,      type: String,                         parsed text: &quot;&#123;&lt;DOUBLE QUOTE&gt;startRow&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;sheet&lt;DOUBLE QUOTE&gt;:0,&lt;DOUBLE QUOTE&gt;queryType&lt;DOUBLE QUOTE&gt;:&lt;DOUBLE QUOTE&gt;TEXT_ROW&lt;DOUBLE QUOTE&gt;&#125;&quot;</span><br><span class="hljs-string">Column 5,   name: create_time, type: DateTime64(3, &#x27;</span><span class="hljs-string">Asia/Shanghai&#x27;),</span> <span class="hljs-attr">parsed text:</span> <span class="hljs-string">&quot;[PARSED_CREATE_TIME]&quot;</span><br><span class="hljs-attr">ERROR:</span> <span class="hljs-string">garbage</span> <span class="hljs-string">after</span> <span class="hljs-string">DateTime64(3,</span> <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><span class="hljs-string">):</span> <span class="hljs-string">&quot;[TASK_ID_FRAGMENT]&quot;</span><br></code></pre></td></tr></table></figure>
+                <p>好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。</p>
+<p>不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个边界：所有东西必须跑在前端，不改主题，不破坏现在的结构，但又最大程度上看起来像能对话。</p>
+<p>博客看板娘的插件不少，但是都没有对话功能，更接不了 API，只能 DIY 一下了。好在现在有 AI，虽然不太会前端，vibe coding 一个能跑的不是问题。</p>
+<br>  
 
-<h3 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h3><p>通过以上内容发现：Column 5 错误的接收了 Column 4 的部分内容。</p>
-<p>其中，<code>others</code> 列以字符串类型存储复杂 JSON 参数，可能是其中的<code>\t</code>、<code>\n</code> 等符号导致失败。</p>
-<p>经排查，了解到 ClickHouse JDBC 在批量插入时，会将参数序列化为类似 TSV 的格式。TSV 插入是按 <code>\t</code> 列分隔、<code>\n</code> 行分隔解析的。JSON 字符串里包含这些符号会导致解析错位，并且即使使用<code>\</code>转义，问题依旧存在。</p>
-<p>使用 <code>PreparedStatement.setString(index, json);</code>不会把 TSV 整行拼成一个字符串写入，JDBC 会按列安全写入，包括 JSON 内的 Tab、换行。理论上可以解决此问题。</p>
-<p>但是代码中使用<code>PreparedStatement</code>按列绑定，问题依旧存在。这时候再看操作数据库等部分：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Java">BATCH_INSERT_SQL = <span class="hljs-string">&quot;INSERT INTO xxx</span><br><span class="hljs-string">(task_id, query, account_id, user_id, others, create_time, update_time)</span><br><span class="hljs-string">VALUES (?, ?, ?, ?, ?, now64(3), now64(3))&quot;</span><br><br><span class="hljs-type">PreparedStatement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.prepareStatement(BATCH_INSERT_SQL);<br>statement.setString()<br>...<br></code></pre></td></tr></table></figure>
+<p>先基于前面几点前提和需求，和 AI 讨论实现方案：oh-my-live2d 插件负责角色显示，再用博客索引 + 关键词匹配，做个假对话。</p>
+<p>真正开始，很快意识到一件事：技术实现其实不是最难的，前端“长什么样”才是。尤其是纯靠 AI 生成，这个问题会被放大很多。</p>
+<p>如果你自己脑子里没有一个非常具体的画面，比如角色在左下还是右下，聊天框从哪里出来，点角色是弹气泡还是直接聊，那你基本上就会进入一个循环：你说“感觉不太对”，AI 改一版，还是“不太对”。就和老板让员工改 UI 改八百版，自己也说不清到底要什么。</p>
+<p>但一旦你脑子里有了一个很清晰的画面，甚至找到参考图，把这些详细描述给 AI，这个时候 AI 写出来的东西，基本就能一步到位。</p>
+<p>实现的时候首先要求 AI 做任务拆分，然后等它一个一个实现，我做的事情更像是：想清楚我要什么 → 描述出来 → 看它写 → 再改，基本上一步到位，最后除了一些细节上的微调，交给 AI 太麻烦，而且有点浪费 token，其余很顺利的完成了，真正手写的代码很少。</p>
+<br>  
 
-<p>问题的根源是 ClickHouse 官方 JDBC 并不完全支持 混合 <code>?</code> 参数 + 函数表达式<code>now64(3)</code> 的 <code>INSERT VALUES</code> 写法，在解析过程中很可能拼成了一行，导致<code>others</code> 内 JSON 包含的特殊字符破坏了列边界，导致后面的 create_time 列解析失败。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>全部使用 <code>?</code> 占位符，利用 JDBC 绑定：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">BATCH_INSERT_SQL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;INSERT INTO xxx&quot;</span> +<br>        <span class="hljs-string">&quot;(task_id, query, account_id, user_id, others, create_time, update_time) &quot;</span> +<br>        <span class="hljs-string">&quot;VALUES (?, ?, ?, ?, ?, ?, ?)&quot;</span>;<br><br>...<br><br><span class="hljs-keyword">for</span> (Task task : tasks) &#123;<br>    statement.setString(index, xxx);<br>    ...<br>    statement.addBatch();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>现在这个版本，算是一个勉强“能用”的 Amadeus 了。可以互动，可以简单对话，也能回答博客里的问题。但离一开始的想法，其实还差很多。未来的计划大概就是接入真正的 AI，对话的连续性，表情和语音这些，以及一些优化问题，比如模型加载。</p>
+<p>后面继续再慢慢补成一个真正的 Amadeus，甚至写个插件。</p>
+<br>  
 
-<p>ClickHouse 中时间格式为 <code>DateTime64(3,&#39;Asia/Shanghai&#39;)</code>，使用以下 Java 代码代替 <code>now64(3)</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">Calendar</span> <span class="hljs-variable">shanghaiCal</span> <span class="hljs-operator">=</span> Calendar.getInstance(TimeZone.getTimeZone(<span class="hljs-string">&quot;Asia/Shanghai&quot;</span>));<br><br>statement.setTimestamp(index, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(System.currentTimeMillis()), shanghaiCal);<br></code></pre></td></tr></table></figure>
+<p>另，模型资源来自 <a target="_blank" rel="noopener" href="https://github.com/FrancescoCaracciolo/Amadeus%EF%BC%8C%E5%86%85%E5%90%AB%E7%BA%A2%E8%8E%89%E6%A0%96%E7%9A%84%E5%85%B6%E4%BB%96%E6%9C%89%E5%85%B3%E8%B5%84%E6%BA%90%E3%80%82">https://github.com/FrancescoCaracciolo/Amadeus，内含红莉栖的其他有关资源。</a></p>
+<br>  
 
-<p>问题解决！</p>
+<p><strong>El Psy Congroo！</strong></p>
 
                 
               </div>
@@ -334,7 +342,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Debug/" class="category-chain-item">Debug</a>
+  <a href="/categories/blog/" class="category-chain-item">blog</a>
   
   
 
@@ -349,9 +357,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/debug/" class="print-no-link">#debug</a>
+        <a href="/tags/hexo/" class="print-no-link">#hexo</a>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+        <a href="/tags/mixture/" class="print-no-link">#mixture</a>
       
     </div>
   
@@ -365,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/" title="开机：我的 Linux 新机开荒过程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">开机：我的 Linux 新机开荒过程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/10/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/" title="开机：我的 Linux 新机开荒过程">
+                        <span class="hidden-mobile">开机：我的 Linux 新机开荒过程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -516,6 +518,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   
