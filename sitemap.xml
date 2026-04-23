@@ -2,6 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xmkdgdz.github.io/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/</loc>
+    
+    <lastmod>2026-04-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/shizuku.physics.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/shizuku.pose.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/kurisu.model.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f01.exp.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f02.exp.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f03.exp.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/kurisu/expressions/f04.exp.json</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/</loc>
+    
+    <lastmod>2026-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xmkdgdz.github.io/2025/08/29/%E5%BC%80%E6%9C%BA%EF%BC%9A%E6%88%91%E7%9A%84%20Linux%20%E6%96%B0%E6%9C%BA%E5%BC%80%E8%8D%92%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2025-09-13</lastmod>
@@ -40,7 +121,7 @@
 
   <url>
     <loc>https://xmkdgdz.github.io/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -48,35 +129,49 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/hexo/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/debug/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/Linux/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/mixture/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/Wayland/</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/IDEA/</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -85,14 +180,21 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/categories/Debug/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://xmkdgdz.github.io/categories/Linux/</loc>
-    <lastmod>2025-10-01</lastmod>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/categories/blog/</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
