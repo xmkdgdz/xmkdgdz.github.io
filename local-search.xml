@@ -188,7 +188,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Pose","parts_visible":[{"group":[{"id":"PARTS_01_ARM_L_01"},{"id":"PARTS_01_ARM_L_02"}]},{"group":[{"id":"PARTS_01_ARM_R_01"},{"id":"PARTS_01_ARM_R_02"}]}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Physics","physics_hair":[{"label":"hair_front","setup":{"length":0.15,"regist":0.5,"mass":0.1},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_FRONT","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_side","setup":{"length":0.35,"regist":0.6,"mass":0.22},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_SIDE","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_back","setup":{"length":0.2,"regist":0.7,"mass":0.25},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.012,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2,"weight":1}],"targets":[{"id":"PARAM_HAIR_BACK","ptype":"angle","scale":0.022,"weight":1}]}]}]]></content>
     
   </entry>
   
@@ -199,7 +199,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Physics","physics_hair":[{"label":"hair_front","setup":{"length":0.15,"regist":0.5,"mass":0.1},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_FRONT","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_side","setup":{"length":0.35,"regist":0.6,"mass":0.22},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_SIDE","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_back","setup":{"length":0.2,"regist":0.7,"mass":0.25},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.012,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2,"weight":1}],"targets":[{"id":"PARAM_HAIR_BACK","ptype":"angle","scale":0.022,"weight":1}]}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Pose","parts_visible":[{"group":[{"id":"PARTS_01_ARM_L_01"},{"id":"PARTS_01_ARM_L_02"}]},{"group":[{"id":"PARTS_01_ARM_R_01"},{"id":"PARTS_01_ARM_R_02"}]}]}]]></content>
     
   </entry>
   
@@ -221,7 +221,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_Y","val":0.2},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.2},{"id":"PARAM_BROW_R_Y","val":-0.2},{"id":"PARAM_BROW_L_X","val":-0.4},{"id":"PARAM_BROW_R_X","val":-0.4},{"id":"PARAM_BROW_L_FORM","val":-1},{"id":"PARAM_BROW_R_FORM","val":-1},{"id":"PARAM_MOUTH_FORM","val":-0.7,"def":1},{"id":"PARAM_MOUTH_SIZE","val":0.3}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_X","val":-0.4},{"id":"PARAM_EYE_BALL_Y","val":-0.7},{"id":"PARAM_EYE_L_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_EYE_R_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_DONYORI","val":0.7},{"id":"PARAM_EYE_FORM","val":0.3},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.3},{"id":"PARAM_BROW_R_Y","val":-0.3},{"id":"PARAM_BROW_L_X","val":-0.3},{"id":"PARAM_BROW_R_X","val":-0.3},{"id":"PARAM_BROW_L_ANGLE","val":0.5},{"id":"PARAM_BROW_R_ANGLE","val":0.5},{"id":"PARAM_BROW_L_FORM","val":-0.5},{"id":"PARAM_BROW_R_FORM","val":-0.5},{"id":"PARAM_MOUTH_FORM","val":-1,"def":1},{"id":"PARAM_MOUTH_SIZE","val":-1}]}]]></content>
     
   </entry>
   
@@ -232,7 +232,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_X","val":-0.4},{"id":"PARAM_EYE_BALL_Y","val":-0.7},{"id":"PARAM_EYE_L_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_EYE_R_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_DONYORI","val":0.7},{"id":"PARAM_EYE_FORM","val":0.3},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.3},{"id":"PARAM_BROW_R_Y","val":-0.3},{"id":"PARAM_BROW_L_X","val":-0.3},{"id":"PARAM_BROW_R_X","val":-0.3},{"id":"PARAM_BROW_L_ANGLE","val":0.5},{"id":"PARAM_BROW_R_ANGLE","val":0.5},{"id":"PARAM_BROW_L_FORM","val":-0.5},{"id":"PARAM_BROW_R_FORM","val":-0.5},{"id":"PARAM_MOUTH_FORM","val":-1,"def":1},{"id":"PARAM_MOUTH_SIZE","val":-1}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_Y","val":0.2},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.2},{"id":"PARAM_BROW_R_Y","val":-0.2},{"id":"PARAM_BROW_L_X","val":-0.4},{"id":"PARAM_BROW_R_X","val":-0.4},{"id":"PARAM_BROW_L_FORM","val":-1},{"id":"PARAM_BROW_R_FORM","val":-1},{"id":"PARAM_MOUTH_FORM","val":-0.7,"def":1},{"id":"PARAM_MOUTH_SIZE","val":0.3}]}]]></content>
     
   </entry>
   
