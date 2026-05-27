@@ -27,7 +27,7 @@
 <meta property="og:description" content="好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。 不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T12:00:23.000Z">
-<meta property="article:modified_time" content="2026-04-10T12:30:07.717Z">
+<meta property="article:modified_time" content="2026-04-10T12:33:18.136Z">
 <meta property="article:author" content="XMKDGDZ">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="mixture">
@@ -294,7 +294,7 @@
               <p id="updated-time" class="note note-default" style="display: none">
                 
                   
-                    本文最后更新于 2026-04-10T20:30:07+08:00
+                    本文最后更新于 2026-04-10T20:33:18+08:00
                   
                   
 
@@ -316,7 +316,7 @@
 <p>实现的时候首先要求 AI 做任务拆分，然后等它一个一个实现，我做的事情更像是：想清楚我要什么 → 描述出来 → 看它写 → 再改，基本上一步到位，最后除了一些细节上的微调，交给 AI 太麻烦，而且有点浪费 token，其余很顺利的完成了，真正手写的代码很少。</p>
 <br>  
 
-<p>现在这个版本，算是一个勉强“能用”的 Amadeus 了。可以互动，可以简单对话，也能回答博客里的问题。但离一开始的想法，其实还差很多。未来的计划大概就是接入真正的 AI，对话的连续性，表情和语音这些，以及一些优化问题，比如模型加载。</p>
+<p>现在这个版本，算是一个勉强“能用”的 Amadeus 了。可以戳戳，可以简单对话，也能回答博客里的问题。但离一开始的想法，其实还差很多。未来的计划大概就是接入真正的 AI，对话的连续性，表情和语音这些，以及一些优化问题，比如模型加载。</p>
 <p>后面继续再慢慢补成一个真正的 Amadeus，甚至写个插件。</p>
 <br>  
 
@@ -373,6 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/" title="问题解决：Ubuntu 下 IDEA 复制中文变问号乱码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">问题解决：Ubuntu 下 IDEA 复制中文变问号乱码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
@@ -389,6 +395,50 @@
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"xmkdgdz/xmkdgdz.github.io","repo-id":"R_kgDONbIDtw","category":"Announcements","category-id":"DIC_kwDONbIDt84C98kg","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>

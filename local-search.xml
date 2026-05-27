@@ -4,11 +4,42 @@
   
   
   <entry>
+    <title>问题解决：Ubuntu 下 IDEA 复制中文变问号乱码</title>
+    <link href="/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/"/>
+    <url>/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在 <strong>Ubuntu</strong> 系统中（<strong>Wayland 桌面协议</strong>），使用最新版的 <strong>IntelliJ IDEA 2026.1</strong> 开发时，遇到了一个极其诡异的复制粘贴问题：从 IDEA 中复制一段包含中文的代码或文字，粘贴到 Chrome 浏览器、VS Code 时，中文全部变成了问号 <code>??????</code>。但是如果先粘贴到 Ubuntu 自带的文本编辑器，显示又是正常的；再从编辑器二次复制粘贴到浏览器，中文也正常。</p><p>虽然也能用，但是这种“中间商赚差价”的操作还是有点影响效率，本着刨根究底的心态开始了问题定位。</p><h2 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h2><p>通过底层工具 <code>xclip</code> 对剪贴板格式进行检查，发现这段复制内容中包含了十几种格式：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Bash">JAVA_DATATRANSFER_COOKIE_***<br>text/plain;charset=US-ASCII<br>text/html;charset=UTF-16LE<br>text/html;charset=UTF-16<br>STRING<br>...<br>text/html;charset=US-ASCII<br>text/plain;charset=UTF-8<br>text/plain;charset=utf-16<br>...<br>TARGETS<br>TIMESTAMP<br></code></pre></td></tr></table></figure><p>把范围大概缩小到编码上了，IDEA 输出了多种格式，而部分接收方错误的选择了其中不支持中文的一些格式。接下来尝试了以下几种方案：</p><ol><li>禁用 IDEA 的“富文本复制”（Copy as rich text）。<em>—— 无效，依然乱码。</em></li><li>VM Options 强制指定 <code>file.encoding=UTF-8</code>。<em>—— 无效</em></li><li>考虑到 Linux 兼容性里最常见的显示协议问题，将显示模式从 <strong>Wayland</strong> 换成 <strong>Xorg</strong>。<em>——</em> <em><strong>成功</strong></em></li></ol><p>但为了一个软件换整个系统的协议肯定是下下策，考虑其他解决办法和根本原因。</p><p><strong>最后找到了这样一个issue：<a href="https://youtrack.jetbrains.com/issue/JBR-10186/Clipboard-corrupts-multi-byte-characters">https://youtrack.jetbrains.com/issue/JBR-10186/Clipboard-corrupts-multi-byte-characters</a></strong></p><blockquote><p>gemini 的联网搜索能力还是强</p></blockquote><h2 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h2><p>IDEA 2026.1 版本引入了一个重大的底层变化：<strong>默认开启了原生 Wayland 支持 (WLToolkit)</strong>。而 Wayland 规范并没有规定提供的 MIME 类型必须按优先级顺序排列，但许多应用程序和工具包会默认选择第一个。而 JBR 中的实现使用了 HashSet,没有对这些编码从更高兼容到低兼容进行排序。又因为存在更多 Unicode 格式（如 utf-8 的各种拼写、utf-16 的 be&#x2F;le、utf-32 等），HashSet 中的排序只是有很小的概率会将非 Unicode 格式放在 Unicode 格式之前，导致该问题并不普遍。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="方案-A：强制回退到-X11-兼容模式"><a href="#方案-A：强制回退到-X11-兼容模式" class="headerlink" title="方案 A：强制回退到 X11 兼容模式"></a>方案 A：强制回退到 X11 兼容模式</h3><ol><li>在 IDEA 中打开：<code>Help</code> -&gt; <code>Edit Custom VM Options...</code>。</li><li>在末尾添加：<code>-Dawt.toolkit.name=x11Toolkit</code></li><li>重启 IDEA。</li></ol><h3 id="方案-B：更换已修复该-Bug-的-JBR（根本解决）"><a href="#方案-B：更换已修复该-Bug-的-JBR（根本解决）" class="headerlink" title="方案 B：更换已修复该 Bug 的 JBR（根本解决）"></a>方案 B：更换已修复该 Bug 的 JBR（根本解决）</h3><p>根据 JetBrains YouTrack (Issue <strong>JBR-10186</strong>) 的最新进展，可以通过更换经过补丁修复的 JBR 来解决。更换 JBR 参考：<a href="https://www.jetbrains.com/help/idea/switching-boot-jdk.html">https://www.jetbrains.com/help/idea/switching-boot-jdk.html</a></p><ol><li>下载 JBR：<a href="https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.2-linux-x64-b401.tar.gz">https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.2-linux-x64-b401.tar.gz</a> 并解压</li><li>在 IDEA 中转到“帮助 | 查找操作…” （Help | Find Action…）或按 Ctrl+Shift+A</li><li>找到并选择“为 IDE 选择启动 Java 运行时环境…”（Choose Boot Java Runtime for the IDE…）</li><li>更改 JBR 到解压目录</li><li>重启 IDE</li></ol><p>问题解决！</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Debug</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>debug</tag>
+      
+      <tag>Linux</tag>
+      
+      <tag>Wayland</tag>
+      
+      <tag>IDEA</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>我在博客里放了一个牧濑红莉栖</title>
     <link href="/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/"/>
     <url>/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/</url>
     
-    <content type="html"><![CDATA[<p>好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。</p><p>不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个边界：所有东西必须跑在前端，不改主题，不破坏现在的结构，但又最大程度上看起来像能对话。</p><p>博客看板娘的插件不少，但是都没有对话功能，更接不了 API，只能 DIY 一下了。好在现在有 AI，虽然不太会前端，vibe coding 一个能跑的不是问题。</p><br>  <p>先基于前面几点前提和需求，和 AI 讨论实现方案：oh-my-live2d 插件负责角色显示，再用博客索引 + 关键词匹配，做个假对话。</p><p>真正开始，很快意识到一件事：技术实现其实不是最难的，前端“长什么样”才是。尤其是纯靠 AI 生成，这个问题会被放大很多。</p><p>如果你自己脑子里没有一个非常具体的画面，比如角色在左下还是右下，聊天框从哪里出来，点角色是弹气泡还是直接聊，那你基本上就会进入一个循环：你说“感觉不太对”，AI 改一版，还是“不太对”。就和老板让员工改 UI 改八百版，自己也说不清到底要什么。</p><p>但一旦你脑子里有了一个很清晰的画面，甚至找到参考图，把这些详细描述给 AI，这个时候 AI 写出来的东西，基本就能一步到位。</p><p>实现的时候首先要求 AI 做任务拆分，然后等它一个一个实现，我做的事情更像是：想清楚我要什么 → 描述出来 → 看它写 → 再改，基本上一步到位，最后除了一些细节上的微调，交给 AI 太麻烦，而且有点浪费 token，其余很顺利的完成了，真正手写的代码很少。</p><br>  <p>现在这个版本，算是一个勉强“能用”的 Amadeus 了。可以互动，可以简单对话，也能回答博客里的问题。但离一开始的想法，其实还差很多。未来的计划大概就是接入真正的 AI，对话的连续性，表情和语音这些，以及一些优化问题，比如模型加载。</p><p>后面继续再慢慢补成一个真正的 Amadeus，甚至写个插件。</p><br>  <p>另，模型资源来自 <a href="https://github.com/FrancescoCaracciolo/Amadeus%EF%BC%8C%E5%86%85%E5%90%AB%E7%BA%A2%E8%8E%89%E6%A0%96%E7%9A%84%E5%85%B6%E4%BB%96%E6%9C%89%E5%85%B3%E8%B5%84%E6%BA%90%E3%80%82">https://github.com/FrancescoCaracciolo/Amadeus，内含红莉栖的其他有关资源。</a></p><br>  <p><strong>El Psy Congroo！</strong></p>]]></content>
+    <content type="html"><![CDATA[<p>好久没倒腾博客了，前一阵看了剧场版，再加上最近有点时间，就计划在博客里放一个 Amadeus，除了普通博客看板娘的功能，还要接入 AI 对话，再加点 RAG，能回答博客有关的问题。</p><p>不过目前的博客环境很简单，用的 Hexo + Fluid，部署在 GitHub Pages，本质上就是一个全静态的 HTML 网页。不改这些的话肯定接不了真 AI，暂时没有马上迁移博客的想法，所以一开始就给自己定了几个边界：所有东西必须跑在前端，不改主题，不破坏现在的结构，但又最大程度上看起来像能对话。</p><p>博客看板娘的插件不少，但是都没有对话功能，更接不了 API，只能 DIY 一下了。好在现在有 AI，虽然不太会前端，vibe coding 一个能跑的不是问题。</p><br>  <p>先基于前面几点前提和需求，和 AI 讨论实现方案：oh-my-live2d 插件负责角色显示，再用博客索引 + 关键词匹配，做个假对话。</p><p>真正开始，很快意识到一件事：技术实现其实不是最难的，前端“长什么样”才是。尤其是纯靠 AI 生成，这个问题会被放大很多。</p><p>如果你自己脑子里没有一个非常具体的画面，比如角色在左下还是右下，聊天框从哪里出来，点角色是弹气泡还是直接聊，那你基本上就会进入一个循环：你说“感觉不太对”，AI 改一版，还是“不太对”。就和老板让员工改 UI 改八百版，自己也说不清到底要什么。</p><p>但一旦你脑子里有了一个很清晰的画面，甚至找到参考图，把这些详细描述给 AI，这个时候 AI 写出来的东西，基本就能一步到位。</p><p>实现的时候首先要求 AI 做任务拆分，然后等它一个一个实现，我做的事情更像是：想清楚我要什么 → 描述出来 → 看它写 → 再改，基本上一步到位，最后除了一些细节上的微调，交给 AI 太麻烦，而且有点浪费 token，其余很顺利的完成了，真正手写的代码很少。</p><br>  <p>现在这个版本，算是一个勉强“能用”的 Amadeus 了。可以戳戳，可以简单对话，也能回答博客里的问题。但离一开始的想法，其实还差很多。未来的计划大概就是接入真正的 AI，对话的连续性，表情和语音这些，以及一些优化问题，比如模型加载。</p><p>后面继续再慢慢补成一个真正的 Amadeus，甚至写个插件。</p><br>  <p>另，模型资源来自 <a href="https://github.com/FrancescoCaracciolo/Amadeus%EF%BC%8C%E5%86%85%E5%90%AB%E7%BA%A2%E8%8E%89%E6%A0%96%E7%9A%84%E5%85%B6%E4%BB%96%E6%9C%89%E5%85%B3%E8%B5%84%E6%BA%90%E3%80%82">https://github.com/FrancescoCaracciolo/Amadeus，内含红莉栖的其他有关资源。</a></p><br>  <p><strong>El Psy Congroo！</strong></p>]]></content>
     
     
     <categories>
@@ -47,11 +78,11 @@
     
     <tags>
       
-      <tag>mixture</tag>
+      <tag>debug</tag>
       
       <tag>Linux</tag>
       
-      <tag>debug</tag>
+      <tag>mixture</tag>
       
     </tags>
     
@@ -76,9 +107,9 @@
     
     <tags>
       
-      <tag>debug</tag>
-      
       <tag>数据库</tag>
+      
+      <tag>debug</tag>
       
     </tags>
     
@@ -105,6 +136,17 @@
   
   
   
+  
+  
+  
+  <entry>
+    <title>about</title>
+    <link href="/"/>
+    <url>/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+  </entry>
   
   
   
@@ -146,17 +188,6 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Physics","physics_hair":[{"label":"hair_front","setup":{"length":0.15,"regist":0.5,"mass":0.1},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_FRONT","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_side","setup":{"length":0.35,"regist":0.6,"mass":0.22},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_SIDE","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_back","setup":{"length":0.2,"regist":0.7,"mass":0.25},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.012,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2,"weight":1}],"targets":[{"id":"PARAM_HAIR_BACK","ptype":"angle","scale":0.022,"weight":1}]}]}]]></content>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/"/>
-    <url>/</url>
-    
     <content type="html"><![CDATA[{"type":"Live2D Pose","parts_visible":[{"group":[{"id":"PARTS_01_ARM_L_01"},{"id":"PARTS_01_ARM_L_02"}]},{"group":[{"id":"PARTS_01_ARM_R_01"},{"id":"PARTS_01_ARM_R_02"}]}]}]]></content>
     
   </entry>
@@ -168,7 +199,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_X","val":-0.4},{"id":"PARAM_EYE_BALL_Y","val":-0.7},{"id":"PARAM_EYE_L_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_EYE_R_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_DONYORI","val":0.7},{"id":"PARAM_EYE_FORM","val":0.3},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.3},{"id":"PARAM_BROW_R_Y","val":-0.3},{"id":"PARAM_BROW_L_X","val":-0.3},{"id":"PARAM_BROW_R_X","val":-0.3},{"id":"PARAM_BROW_L_ANGLE","val":0.5},{"id":"PARAM_BROW_R_ANGLE","val":0.5},{"id":"PARAM_BROW_L_FORM","val":-0.5},{"id":"PARAM_BROW_R_FORM","val":-0.5},{"id":"PARAM_MOUTH_FORM","val":-1,"def":1},{"id":"PARAM_MOUTH_SIZE","val":-1}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Physics","physics_hair":[{"label":"hair_front","setup":{"length":0.15,"regist":0.5,"mass":0.1},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_FRONT","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_side","setup":{"length":0.35,"regist":0.6,"mass":0.22},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.015,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2.4,"weight":1}],"targets":[{"id":"PARAM_HAIR_SIDE","ptype":"angle","scale":0.022,"weight":1}]},{"label":"hair_back","setup":{"length":0.2,"regist":0.7,"mass":0.25},"src":[{"id":"PARAM_ANGLE_X","ptype":"x","scale":0.005,"weight":0.5},{"id":"PARAM_BODY_ANGLE_X","ptype":"x","scale":0.012,"weight":1},{"id":"PARAM_ANGLE_Z","ptype":"angle","scale":0.8,"weight":0.5},{"id":"PARAM_BODY_ANGLE_Z","ptype":"angle","scale":2,"weight":1}],"targets":[{"id":"PARAM_HAIR_BACK","ptype":"angle","scale":0.022,"weight":1}]}]}]]></content>
     
   </entry>
   
@@ -186,11 +217,11 @@
   
   
   <entry>
-    <title>about</title>
+    <title></title>
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_Y","val":0.2},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.2},{"id":"PARAM_BROW_R_Y","val":-0.2},{"id":"PARAM_BROW_L_X","val":-0.4},{"id":"PARAM_BROW_R_X","val":-0.4},{"id":"PARAM_BROW_L_FORM","val":-1},{"id":"PARAM_BROW_R_FORM","val":-1},{"id":"PARAM_MOUTH_FORM","val":-0.7,"def":1},{"id":"PARAM_MOUTH_SIZE","val":0.3}]}]]></content>
     
   </entry>
   
@@ -201,7 +232,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_Y","val":0.2},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.2},{"id":"PARAM_BROW_R_Y","val":-0.2},{"id":"PARAM_BROW_L_X","val":-0.4},{"id":"PARAM_BROW_R_X","val":-0.4},{"id":"PARAM_BROW_L_FORM","val":-1},{"id":"PARAM_BROW_R_FORM","val":-1},{"id":"PARAM_MOUTH_FORM","val":-0.7,"def":1},{"id":"PARAM_MOUTH_SIZE","val":0.3}]}]]></content>
+    <content type="html"><![CDATA[{"type":"Live2D Expression","fade_in":500,"fade_out":500,"params":[{"id":"PARAM_EYE_BALL_X","val":-0.4},{"id":"PARAM_EYE_BALL_Y","val":-0.7},{"id":"PARAM_EYE_L_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_EYE_R_OPEN","val":0.7,"def":1,"calc":"mult"},{"id":"PARAM_DONYORI","val":0.7},{"id":"PARAM_EYE_FORM","val":0.3},{"id":"PARAM_BODY_Y","val":-0.5},{"id":"PARAM_BROW_L_Y","val":-0.3},{"id":"PARAM_BROW_R_Y","val":-0.3},{"id":"PARAM_BROW_L_X","val":-0.3},{"id":"PARAM_BROW_R_X","val":-0.3},{"id":"PARAM_BROW_L_ANGLE","val":0.5},{"id":"PARAM_BROW_R_ANGLE","val":0.5},{"id":"PARAM_BROW_L_FORM","val":-0.5},{"id":"PARAM_BROW_R_FORM","val":-0.5},{"id":"PARAM_MOUTH_FORM","val":-1,"def":1},{"id":"PARAM_MOUTH_SIZE","val":-1}]}]]></content>
     
   </entry>
   
