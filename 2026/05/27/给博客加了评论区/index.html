@@ -19,25 +19,23 @@
   <meta name="author" content="XMKDGDZ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述在 Ubuntu 系统中（Wayland 桌面协议），使用最新版的 IntelliJ IDEA 2026.1 开发时，遇到了一个极其诡异的复制粘贴问题：从 IDEA 中复制一段包含中文的代码或文字，粘贴到 Chrome 浏览器、VS Code 时，中文全部变成了问号 ??????。但是如果先粘贴到 Ubuntu 自带的文本编辑器，显示又是正常的；再从编辑器二次复制粘贴到浏览器，中文也正常。">
+    <meta name="description" content="博客现在支持评论了，基于 Giscus，登录 GitHub 账号即可留言。 没有看到评论区如果开着代理，评论区可能加载不出来。原因可能是 giscus.app 侧拦截了代理的请求。在代理软件的规则文件中配置直连 giscus 即可： 1DOMAIN-SUFFIX,giscus.app,DIRECT  保存规则后刷新页面，评论区正常加载。 Giscus 简介Giscus 是一个基于 GitHub D">
 <meta property="og:type" content="article">
-<meta property="og:title" content="问题解决：Ubuntu 下 IDEA 复制中文变问号乱码">
-<meta property="og:url" content="https://xmkdgdz.github.io/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/index.html">
+<meta property="og:title" content="给博客加了评论区">
+<meta property="og:url" content="https://xmkdgdz.github.io/2026/05/27/%E7%BB%99%E5%8D%9A%E5%AE%A2%E5%8A%A0%E4%BA%86%E8%AF%84%E8%AE%BA%E5%8C%BA/index.html">
 <meta property="og:site_name" content="XMKDGDZ&#39;s Blog">
-<meta property="og:description" content="问题描述在 Ubuntu 系统中（Wayland 桌面协议），使用最新版的 IntelliJ IDEA 2026.1 开发时，遇到了一个极其诡异的复制粘贴问题：从 IDEA 中复制一段包含中文的代码或文字，粘贴到 Chrome 浏览器、VS Code 时，中文全部变成了问号 ??????。但是如果先粘贴到 Ubuntu 自带的文本编辑器，显示又是正常的；再从编辑器二次复制粘贴到浏览器，中文也正常。">
+<meta property="og:description" content="博客现在支持评论了，基于 Giscus，登录 GitHub 账号即可留言。 没有看到评论区如果开着代理，评论区可能加载不出来。原因可能是 giscus.app 侧拦截了代理的请求。在代理软件的规则文件中配置直连 giscus 即可： 1DOMAIN-SUFFIX,giscus.app,DIRECT  保存规则后刷新页面，评论区正常加载。 Giscus 简介Giscus 是一个基于 GitHub D">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-04-23T03:30:33.000Z">
-<meta property="article:modified_time" content="2026-05-27T10:50:32.481Z">
+<meta property="article:published_time" content="2026-05-27T12:09:00.000Z">
+<meta property="article:modified_time" content="2026-05-27T12:37:13.564Z">
 <meta property="article:author" content="XMKDGDZ">
-<meta property="article:tag" content="debug">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Wayland">
-<meta property="article:tag" content="IDEA">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="giscus">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>问题解决：Ubuntu 下 IDEA 复制中文变问号乱码 - XMKDGDZ&#39;s Blog</title>
+  <title>给博客加了评论区 - XMKDGDZ&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -220,7 +218,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">问题解决：Ubuntu 下 IDEA 复制中文变问号乱码</span>
+            <span id="subtitle">给博客加了评论区</span>
           
         </div>
 
@@ -231,8 +229,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-04-23 11:30" pubdate>
-          2026年4月23日 中午
+        <time datetime="2026-05-27 20:09" pubdate>
+          2026年5月27日 晚上
         </time>
       </span>
     
@@ -243,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          727 字
+          249 字
         
       </span>
     
@@ -254,7 +252,7 @@
         
         
         
-          7 分钟
+          3 分钟
         
       </span>
     
@@ -291,12 +289,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">问题解决：Ubuntu 下 IDEA 复制中文变问号乱码</h1>
+            <h1 id="seo-header">给博客加了评论区</h1>
             
               <p id="updated-time" class="note note-default" style="display: none">
                 
                   
-                    本文最后更新于 2026-05-27T18:50:32+08:00
+                    本文最后更新于 2026-05-27T20:37:13+08:00
                   
                   
 
@@ -306,38 +304,19 @@
             
               <div class="markdown-body">
                 
-                <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在 <strong>Ubuntu</strong> 系统中（<strong>Wayland 桌面协议</strong>），使用最新版的 <strong>IntelliJ IDEA 2026.1</strong> 开发时，遇到了一个极其诡异的复制粘贴问题：从 IDEA 中复制一段包含中文的代码或文字，粘贴到 Chrome 浏览器、VS Code 时，中文全部变成了问号 <code>??????</code>。但是如果先粘贴到 Ubuntu 自带的文本编辑器，显示又是正常的；再从编辑器二次复制粘贴到浏览器，中文也正常。</p>
-<p>虽然也能用，但是这种“中间商赚差价”的操作还是有点影响效率，本着刨根究底的心态开始了问题定位。</p>
-<h2 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h2><p>通过底层工具 <code>xclip</code> 对剪贴板格式进行检查，发现这段复制内容中包含了十几种格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Bash">JAVA_DATATRANSFER_COOKIE_***<br>text/plain;charset=US-ASCII<br>text/html;charset=UTF-16LE<br>text/html;charset=UTF-16<br>STRING<br>...<br>text/html;charset=US-ASCII<br>text/plain;charset=UTF-8<br>text/plain;charset=utf-16<br>...<br>TARGETS<br>TIMESTAMP<br></code></pre></td></tr></table></figure>
+                <p>博客现在支持评论了，基于 <a target="_blank" rel="noopener" href="https://giscus.app/">Giscus</a>，登录 GitHub 账号即可留言。</p>
+<h2 id="没有看到评论区"><a href="#没有看到评论区" class="headerlink" title="没有看到评论区"></a>没有看到评论区</h2><p>如果开着代理，评论区可能加载不出来。原因可能是 giscus.app 侧拦截了代理的请求。在代理软件的规则文件中配置直连 giscus 即可：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-built_in">DOMAIN</span>-SUFFIX,giscus.app,DIRECT<br></code></pre></td></tr></table></figure>
 
-<p>把范围大概缩小到编码上了，IDEA 输出了多种格式，而部分接收方错误的选择了其中不支持中文的一些格式。接下来尝试了以下几种方案：</p>
-<ol>
-<li>禁用 IDEA 的“富文本复制”（Copy as rich text）。<em>—— 无效，依然乱码。</em></li>
-<li>VM Options 强制指定 <code>file.encoding=UTF-8</code>。<em>—— 无效</em></li>
-<li>考虑到 Linux 兼容性里最常见的显示协议问题，将显示模式从 <strong>Wayland</strong> 换成 <strong>Xorg</strong>。<em>——</em> <em><strong>成功</strong></em></li>
+<p>保存规则后刷新页面，评论区正常加载。</p>
+<h2 id="Giscus-简介"><a href="#Giscus-简介" class="headerlink" title="Giscus 简介"></a>Giscus 简介</h2><p>Giscus 是一个基于 GitHub Discussions 的评论系统，开源免费，无需数据库，评论数据直接存在仓库的 Discussions 里，访客登录 GitHub 账号即可留言。</p>
+<h2 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h2><ol>
+<li>在 GitHub 仓库设置中开启 Discussions 功能。</li>
+<li>在仓库里安装 <a target="_blank" rel="noopener" href="https://github.com/apps/giscus">giscus app</a>。</li>
+<li>去 <a target="_blank" rel="noopener" href="https://giscus.app/zh-CN">giscus.app</a> 填写仓库信息和评论区设置，一般分类选择 announcements，页面与 discussion 映射关系选择 pathname，其他默认即可</li>
+<li>giscus 会生成参数，将参数填入主题配置，以 Fluid 为例，修改 <code>_config.fluid.yml</code>：</li>
 </ol>
-<p>但为了一个软件换整个系统的协议肯定是下下策，考虑其他解决办法和根本原因。</p>
-<p><strong>最后找到了这样一个issue：<a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/JBR-10186/Clipboard-corrupts-multi-byte-characters">https://youtrack.jetbrains.com/issue/JBR-10186/Clipboard-corrupts-multi-byte-characters</a></strong></p>
-<blockquote>
-<p>gemini 的联网搜索能力还是强</p>
-</blockquote>
-<h2 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h2><p>IDEA 2026.1 版本引入了一个重大的底层变化：<strong>默认开启了原生 Wayland 支持 (WLToolkit)</strong>。而 Wayland 规范并没有规定提供的 MIME 类型必须按优先级顺序排列，但许多应用程序和工具包会默认选择第一个。而 JBR 中的实现使用了 HashSet,没有对这些编码从更高兼容到低兼容进行排序。又因为存在更多 Unicode 格式（如 utf-8 的各种拼写、utf-16 的 be&#x2F;le、utf-32 等），HashSet 中的排序只是有很小的概率会将非 Unicode 格式放在 Unicode 格式之前，导致该问题并不普遍。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="方案-A：强制回退到-X11-兼容模式"><a href="#方案-A：强制回退到-X11-兼容模式" class="headerlink" title="方案 A：强制回退到 X11 兼容模式"></a>方案 A：强制回退到 X11 兼容模式</h3><ol>
-<li>在 IDEA 中打开：<code>Help</code> -&gt; <code>Edit Custom VM Options...</code>。</li>
-<li>在末尾添加：<code>-Dawt.toolkit.name=x11Toolkit</code></li>
-<li>重启 IDEA。</li>
-</ol>
-<h3 id="方案-B：更换已修复该-Bug-的-JBR（根本解决）"><a href="#方案-B：更换已修复该-Bug-的-JBR（根本解决）" class="headerlink" title="方案 B：更换已修复该 Bug 的 JBR（根本解决）"></a>方案 B：更换已修复该 Bug 的 JBR（根本解决）</h3><p>根据 JetBrains YouTrack (Issue <strong>JBR-10186</strong>) 的最新进展，可以通过更换经过补丁修复的 JBR 来解决。更换 JBR 参考：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/switching-boot-jdk.html">https://www.jetbrains.com/help/idea/switching-boot-jdk.html</a></p>
-<ol>
-<li>下载 JBR：<a target="_blank" rel="noopener" href="https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.2-linux-x64-b401.tar.gz">https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.2-linux-x64-b401.tar.gz</a> 并解压</li>
-<li>在 IDEA 中转到“帮助 | 查找操作…” （Help | Find Action…）或按 Ctrl+Shift+A</li>
-<li>找到并选择“为 IDE 选择启动 Java 运行时环境…”（Choose Boot Java Runtime for the IDE…）</li>
-<li>更改 JBR 到解压目录</li>
-<li>重启 IDE</li>
-</ol>
-<p>问题解决！</p>
-
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post:</span><br>  <span class="hljs-attr">comments:</span><br>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">giscus</span><br><br><span class="hljs-attr">giscus:</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">your-name/your-repo</span><br>  <span class="hljs-attr">repo-id:</span> <span class="hljs-string">R_xxxxxxxxx</span><br>  <span class="hljs-attr">category:</span> <span class="hljs-string">Announcements</span><br>  <span class="hljs-attr">category-id:</span> <span class="hljs-string">DIC_xxxxxxxxx</span><br>  <span class="hljs-attr">mapping:</span> <span class="hljs-string">pathname</span><br>  <span class="hljs-attr">theme-light:</span> <span class="hljs-string">light</span><br>  <span class="hljs-attr">theme-dark:</span> <span class="hljs-string">dark</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -355,7 +334,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Debug/" class="category-chain-item">Debug</a>
+  <a href="/categories/blog/" class="category-chain-item">blog</a>
   
   
 
@@ -370,13 +349,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/debug/" class="print-no-link">#debug</a>
+        <a href="/tags/hexo/" class="print-no-link">#hexo</a>
       
-        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
-      
-        <a href="/tags/Wayland/" class="print-no-link">#Wayland</a>
-      
-        <a href="/tags/IDEA/" class="print-no-link">#IDEA</a>
+        <a href="/tags/giscus/" class="print-no-link">#giscus</a>
       
     </div>
   
@@ -390,18 +365,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/05/27/%E7%BB%99%E5%8D%9A%E5%AE%A2%E5%8A%A0%E4%BA%86%E8%AF%84%E8%AE%BA%E5%8C%BA/" title="给博客加了评论区">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">给博客加了评论区</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/04/10/%E6%88%91%E5%9C%A8%E5%8D%9A%E5%AE%A2%E9%87%8C%E6%94%BE%E4%BA%86%E4%B8%80%E4%B8%AA%E7%89%A7%E6%BF%91%E7%BA%A2%E8%8E%89%E6%A0%96/" title="我在博客里放了一个牧濑红莉栖">
-                        <span class="hidden-mobile">我在博客里放了一个牧濑红莉栖</span>
+                      <a href="/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/" title="问题解决：Ubuntu 下 IDEA 复制中文变问号乱码">
+                        <span class="hidden-mobile">问题解决：Ubuntu 下 IDEA 复制中文变问号乱码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

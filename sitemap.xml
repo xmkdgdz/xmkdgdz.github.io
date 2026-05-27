@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xmkdgdz.github.io/2026/05/27/%E7%BB%99%E5%8D%9A%E5%AE%A2%E5%8A%A0%E4%BA%86%E8%AF%84%E8%AE%BA%E5%8C%BA/</loc>
+    
+    <lastmod>2026-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://xmkdgdz.github.io/2026/04/23/%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%EF%BC%9AUbuntu-%E4%B8%8B-IDEA-%E5%A4%8D%E5%88%B6%E4%B8%AD%E6%96%87%E5%8F%98%E9%97%AE%E5%8F%B7%E4%B9%B1%E7%A0%81/</loc>
     
     <lastmod>2026-05-27</lastmod>
@@ -171,6 +180,13 @@
   
   <url>
     <loc>https://xmkdgdz.github.io/tags/IDEA/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xmkdgdz.github.io/tags/giscus/</loc>
     <lastmod>2026-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
